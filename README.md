@@ -1,2 +1,3 @@
 # FirearmDeathRate
-Use regression tree to predict firearm death rate with firearm law &amp; CDC firearm death rate data.
+This project combines data on firearm laws from Boston University's [State Firearm Laws Project](https://www.statefirearmlaws.org/index.html) with CDC WONDER data on firearm death rates per State per Year and uses
+a regression tree to predict firearm death rate.
