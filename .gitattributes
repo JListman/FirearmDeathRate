@@ -1,0 +1,2 @@
+$ cat .gitattributes
+*.Rmd linguist-language=R
