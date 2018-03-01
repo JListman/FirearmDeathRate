@@ -6,7 +6,7 @@ Jenny Listman
 #### This project uses a Recursive Partitioning And Regression Tree analysis from the `rpart` package to examine the effect of 49 gun law subcategories on annual State firearm death rates. Law counts in some subcategories were found to significantly predict State gun death rate decreases or increases.
 
 #### Read the blog post about it [here](https://medium.com/@jblistman) 
-![](/GunDeaths_RegressionTree.png)
+![](data/GunDeaths_RegressionTree.png)
 
 Load packages
 
