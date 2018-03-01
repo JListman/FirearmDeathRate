@@ -44,7 +44,9 @@ Add total for each category of gun law from codebook and create new variables. A
 
 The [codebook](https://www.statefirearmlaws.org/download-codebook.html) includes each law, its category, and subcategory which have been coded by The State Firearm Laws Project research team. Some of the law categories are quite broad and the 133 individual laws may be redundant or correlated. I have used law subcategories, but also ran the same analysis using individual laws and again with categories. Subcategories perfoms about the same as when using individual laws as input but using the 14 broader categories makes less accurate predictions. Perhaps the categories (14) lose information but the subcategories (49) keep most of the information provided by the individual laws.
 
-Counts of gun laws present per State per year must be calculated for each subcategory, but the subcategories contain different numbers of laws. Make a list of lists that contains, for each subcategory name, a list of the variable names for the laws in that subcategory. These will be used to sum, for each row, only the variables that fall within a given subcategory.
+Counts of gun laws present per State per year must be calculated for each subcategory, but the subcategories contain different numbers of laws. List of Lists: Make an empty list `codenames` and use a loop to turn it into a list that contains, for each subcategory name, a list of the variable names for the laws in that subcategory. These will be used to sum, for each row, only the variables that fall within a given subcategory. 
+
+Some subcategories include only one variable. Make an empty dataframe `single_categories` and then fill it using a loop that identifies singletons. Then `mutate` to make a dataframe of strings that can be copied and pasted into the long chunk of code, below, that creates new variables of counts of laws within a subcategory.
 
 ``` r
 codebook <- as.data.frame(read_excel("./data/gunlaw_codebook.xlsx")) %>%
@@ -58,6 +60,7 @@ codebook <- codebook %>%
         mutate(sublevel = as.numeric(`Sub-Category`))
 
 singles <- subset(codebook, n == 1)
+
 single_categories <- data.frame()
 
 for (i in 1:nrow(singles)){
