@@ -22,9 +22,9 @@ library(rlist)
 
 Obtain and read in datasets.
 
-1.  Gun law data, firearm laws across US States from 1991 to 2017 downloaded from The [State Firearm Laws Project](https://www.statefirearmlaws.org/table.html) and [codebook](https://www.statefirearmlaws.org/download-codebook.html)
+1.  Data on presence/absence of 133 firearm laws across US States from 1991 to 2017 and their coded categories and subcategories were downloaded from The [State Firearm Laws Project](https://www.statefirearmlaws.org/table.html) and the associated [codebook](https://www.statefirearmlaws.org/download-codebook.html)
 
-Presense/absense of a given gun law in a state is coded as "1" or "0". These and "Year" are being read as numeric by R so will need to be changed to factor variables. State is already read as factor variable.
+Presense/absense of a given gun law in a state is coded as "1" or "0". These and "Year" are being read as numeric by R so will need to be changed to factor variables. State is read as factor variable.
 
 1.  Download CDC cause of death by State from firearms 1999 to 2016 data. On the [CDC Wonder](https://wonder.cdc.gov/ucd-icd10.html) website, sort by State, Year, and cause of injury = Firearm. This produces a file that contains the crude death rate per 100,000 state residents due to firearm per state per year. This was saved as StateGunDeathRate.csv
 
