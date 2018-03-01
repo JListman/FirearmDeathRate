@@ -213,10 +213,13 @@ plot(lawsubcategories_model_opt)
 text(lawsubcategories_model_opt, use.n=TRUE, all=TRUE, cex = 0.5)
 ```
 
-I need to translate the z-scored values back to the original values they represent in order to make an infographic. The options in `rpart` `visNetwork` and `networkD3` didn't produce the exact tree that I wanted or didn't have the editing options I was looking for. Re-run lines 142 - 243 of the code above to create the same dataset but without z-scores. Then create a decoder dataframe that lists z-sores and original values. Use `list.save` from the `rlist` package to save the output to a file.
-
+I need to translate the z-scored values back to the original values they represent in order to make an infographic. The options in `rpart` `visNetwork` and `networkD3` didn't produce the exact tree that I wanted or didn't have the editing options I was looking for. Save the z-scored version of the test set with another name `z_scored_test_data`. I sometimes end up making long-ish variable names to dummy-proof things for myself.
 ``` r
 z_scored_test_data <- ml_lawsubcategories_test
+```
+Re-run code 5 & 4 blocks above to create the same test dataset but without z-scores by removing this `mutate_each_(funs(scale(.) %>% as.vector), vars=names(.[4:52]))` from the code. Then create a decoder list of lists that contains z-sores and original law count values within each law subcategory. Use `list.save` from the `rlist` package to save the output to a file.
+
+``` r
 
 names <- names(cbind(ml_lawsubcategories_test, z_scored_test_data))
 
