@@ -3,7 +3,7 @@ GunDeaths\_GunLaws
 Jenny Listman
 2/18/2018
 
-#### This project uses a Recursive Partitioning And Regression Tree analysis from the `rpart` package to examine the effect of 49 gun law subcategories on annual State firearm death rates. Ten subcategories were found to significantly predict State gun death rate decreases or increases.
+#### This project uses a Recursive Partitioning And Regression Tree analysis from the `rpart` package to examine the effect of 49 gun law subcategories on annual State firearm death rates. Law counts in some subcategories were found to significantly predict State gun death rate decreases or increases.
 
 #### Read the blog post about it [here](https://medium.com/@jblistman) 
 ![](/GunDeaths_RegressionTree.png)
@@ -22,9 +22,9 @@ library(rlist)
 
 Obtain and read in datasets.
 
-1.  Gun law data, firearm laws across US States from 1991 to 2017 downloaded from The [State Firearm Laws Project](https://www.statefirearmlaws.org/table.html) and [codebook](https://www.statefirearmlaws.org/download-codebook.html)
+1.  Data on presence/absence of 133 firearm laws across US States from 1991 to 2017 and their coded categories and subcategories were downloaded from The [State Firearm Laws Project](https://www.statefirearmlaws.org/table.html) and the associated [codebook](https://www.statefirearmlaws.org/download-codebook.html)
 
-Presense/absense of a given gun law in a state is coded as "1" or "0". These and "Year" are being read as numeric by R so will need to be changed to factor variables. State is already read as factor variable.
+Presense/absense of a given gun law in a state is coded as "1" or "0". These and "Year" are being read as numeric by R so will need to be changed to factor variables. State is read as factor variable.
 
 1.  Download CDC cause of death by State from firearms 1999 to 2016 data. On the [CDC Wonder](https://wonder.cdc.gov/ucd-icd10.html) website, sort by State, Year, and cause of injury = Firearm. This produces a file that contains the crude death rate per 100,000 state residents due to firearm per state per year. This was saved as StateGunDeathRate.csv
 
@@ -44,7 +44,9 @@ Add total for each category of gun law from codebook and create new variables. A
 
 The [codebook](https://www.statefirearmlaws.org/download-codebook.html) includes each law, its category, and subcategory which have been coded by The State Firearm Laws Project research team. Some of the law categories are quite broad and the 133 individual laws may be redundant or correlated. I have used law subcategories, but also ran the same analysis using individual laws and again with categories. Subcategories perfoms about the same as when using individual laws as input but using the 14 broader categories makes less accurate predictions. Perhaps the categories (14) lose information but the subcategories (49) keep most of the information provided by the individual laws.
 
-Counts of gun laws present per State per year must be calculated for each subcategory, but the subcategories contain different numbers of laws. Make a list of lists that contains, for each subcategory name, a list of the column names for the laws in that subcategory. These will be used to sum only the columns that fall within a given subcategory.
+Counts of gun laws present per State per year must be calculated for each subcategory, but the subcategories contain different numbers of laws. List of Lists: Make an empty list `codenames` and use a loop to turn it into a list that contains, for each subcategory name, a list of the variable names for the laws in that subcategory. These will be used to sum, for each row, only the variables that fall within a given subcategory. 
+
+Some subcategories include only one variable. Make an empty dataframe `single_categories` and then fill it using a loop that identifies singletons. Then `mutate` to make a dataframe of strings that can be copied and pasted into the long chunk of code, below, that creates new variables of counts of laws within a subcategory.
 
 ``` r
 codebook <- as.data.frame(read_excel("./data/gunlaw_codebook.xlsx")) %>%
@@ -58,6 +60,7 @@ codebook <- codebook %>%
         mutate(sublevel = as.numeric(`Sub-Category`))
 
 singles <- subset(codebook, n == 1)
+
 single_categories <- data.frame()
 
 for (i in 1:nrow(singles)){
