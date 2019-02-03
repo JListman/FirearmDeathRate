@@ -23,7 +23,7 @@ library(rlist)
 
 Obtain and read in datasets.
 
-1.  Gun law data, firearm laws across US States from 1991 to 2017 downloaded from The [State Firearm Laws Project](https://www.statefirearmlaws.org/table.html) and [codebook](https://www.statefirearmlaws.org/download-codebook.html)
+1.  Gun law data, firearm laws across US States from 1991 to 2017 downloaded from The [State Firearm Laws Project](https://www.statefirearmlaws.org/table.html) and [codebook](https://www.statefirearmlaws.org/resources)
 
 Presense/absense of a given gun law in a state is coded as "1" or "0". These and "Year" are being read as numeric by R so will need to be changed to factor variables. State is already read as factor variable.
 
@@ -43,7 +43,7 @@ gunlaws <- subset(gunlawdata, year > 1998)
 
 Add total for each category of gun law from codebook and create new variables. Add death rate per 100,0000 to dataframe as outcome variable.
 
-The [codebook](https://www.statefirearmlaws.org/download-codebook.html) includes each law, its category, and subcategory which have been coded by The State Firearm Laws Project research team. Some of the law categories are quite broad and the 133 individual laws may be redundant or correlated. I have used law subcategories, but also ran the same analysis using individual laws and again with categories. Subcategories perfoms about the same as when using individual laws as input but using the 14 broader categories makes less accurate predictions. Perhaps the categories (14) lose information but the subcategories (49) keep most of the information provided by the individual laws.
+The [codebook](https://www.statefirearmlaws.org/resources) includes each law, its category, and subcategory which have been coded by The State Firearm Laws Project research team. Some of the law categories are quite broad and the 133 individual laws may be redundant or correlated. I have used law subcategories, but also ran the same analysis using individual laws and again with categories. Subcategories perfoms about the same as when using individual laws as input but using the 14 broader categories makes less accurate predictions. Perhaps the categories (14) lose information but the subcategories (49) keep most of the information provided by the individual laws.
 
 Counts of gun laws present per State per year must be calculated for each subcategory, but the subcategories contain different numbers of laws. Make a list of lists that contains, for each subcategory name, a list of the column names for the laws in that subcategory. These will be used to sum only the columns that fall within a given subcategory.
 
